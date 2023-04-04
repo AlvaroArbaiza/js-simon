@@ -21,7 +21,7 @@ Descrizione:
 
 // Funzione per la creazione dei numeri random
 function numRandom() {
-    return Math.floor( Math.random() * 100 ) - 1;
+    return Math.floor( Math.random() * 100 ) + 1;
 }
 
 function arrayNum() {
@@ -37,9 +37,45 @@ function arrayNum() {
         
             // Viene pushato ( numRandom() )
             array.push( numRandom() )
+            
+            // document.querySelector("#numeri").innerHTML +=
+            // `
+            // <li>${numRandom()}</li>
+            // `
         }    
     }
+
     return array
 }
 
-console.log(arrayNum())
+/* ------------------ Creazione funzione al click ------------------ */
+
+// Creo una variabile per selezionare l'elemento nel DOM
+let play = document.getElementById("play");
+
+// Funzione al click
+play.addEventListener( `click`, function(){
+
+    // Invocazione al Play
+    playButton()
+})
+
+let arrayNumFun = arrayNum();
+
+// Variabile per l'input
+let inputNum = document.getElementById("number");
+
+// Funzione custom
+function playButton(){
+
+    let valueInput = parseInt(inputNum.value)
+    
+    if (!arrayNumFun.includes(valueInput)) {
+        console.log("Try again!")
+    } else {
+        console.log("It's ok!")
+    }
+
+    console.log(valueInput)
+}
+console.log(arrayNumFun)

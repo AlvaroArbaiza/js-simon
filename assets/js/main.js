@@ -19,12 +19,27 @@ Descrizione:
 
 /* --------------------------- Esercizio --------------------------- */
 
-// Variabile per il Numero Random
-const number = numRandom();
-
 // Funzione per la creazione dei numeri random
 function numRandom() {
     return Math.floor( Math.random() * 100 ) - 1;
 }
 
-console.log(number)
+function arrayNum() {
+    
+    // Variabile array vuota
+    let array = [];
+    
+    // Inserisco dentro l'array un Numero Random che non sia già presente
+    while ( array.length < 5 ) {
+    
+        // Se nell'array non c'è il Numero Random ( numRandom() )
+        if (!array.includes( numRandom() )) {
+        
+            // Viene pushato ( numRandom() )
+            array.push( numRandom() )
+        }    
+    }
+    return array
+}
+
+console.log(arrayNum())

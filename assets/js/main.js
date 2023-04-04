@@ -5,47 +5,11 @@ Descrizione:
     - Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei numeri da indovinare sono stati individuati.
 */
 
-/* ------------------- Sviluppo Esercizio ------------------ */
-
-// 1.- Inizio col creare la funzione per i 5 numeri random
-
-// 2.- Creo un'array vuoto dove inserire i numeri random
-
-// 3.- Creo una condizione che mi permetta di inserire i numeri random senza che si ripetano:
-//       - Ogni volta che il numero viene inserito nell'array dovrà essere mostrato e stampato anche sul documento
-//       - Al termine dell'inserimento i numeri dovranno scomparire
-//       - Dovrà comparire un input che mi permetterà di inserire i numeri all'interno dell'array:
-//          ° Dopo aver scritto i numeri, una condizione mi dirà se i numeri sono presenti all'interno dell'array
-
-/* --------------------------- Esercizio --------------------------- */
+/* ----------------------------------- Esercizio ----------------------------------- */
 
 // Funzione per la creazione dei numeri random
 function numRandom() {
     return Math.floor( Math.random() * 100 ) + 1;
-}
-
-function arrayNum() {
-    
-    // Variabile array vuota
-    let array = [];
-    
-    // Inserisco dentro l'array un Numero Random che non sia già presente
-    while ( array.length < 5 ) {
-    
-        // Se nell'array non c'è il Numero Random ( numRandom() )
-        if (!array.includes( numRandom() )) {
-        
-            // Viene pushato ( numRandom() )
-            array.push( numRandom() )
-            
-            // document.querySelector("#numeri").innerHTML +=
-            // `
-            // <li>${numRandom()}</li>
-            // `
-        }    
-    }
-
-    return array
 }
 
 /* ------------------ Creazione funzione al click ------------------ */
@@ -54,28 +18,188 @@ function arrayNum() {
 let play = document.getElementById("play");
 
 // Funzione al click
-play.addEventListener( `click`, function(){
-
+play.addEventListener( `click`, function(){    
     // Invocazione al Play
     playButton()
 })
 
-let arrayNumFun = arrayNum();
+let ulNumeri = document.querySelector("#numeri");
 
-// Variabile per l'input
-let inputNum = document.getElementById("number");
+let num;
+
+let clock1;
+
+let interval;
+
+// Variabile array vuota
+let array = [];
+
+let i = 0;
 
 // Funzione custom
 function playButton(){
-
-    let valueInput = parseInt(inputNum.value)
     
-    if (!arrayNumFun.includes(valueInput)) {
-        console.log("Try again!")
-    } else {
-        console.log("It's ok!")
+    // Funzione per la creazione di numeri random all'interno di un'array vuoto
+    function arrayNum() {        
+        
+        // Inserisco dentro l'array un Numero Random
+        while ( array.length < 5 ) {
+
+            // Invoco la funzione con una variabile per avere lo stesso valore ovunque
+            num = numRandom() 
+    
+            // Viene pushato ( numRandom() )
+            array.push( num )
+            
+            i++
+
+            ulNumeri.innerHTML +=
+            `
+                <li><h3>${i}o Numero:</h3> <h2>${num}</h2></li>
+            `            
+        }
+    
+        return array
+    }
+    console.log(arrayNum())
+
+    // Invoco la funzione per far sparire la lista dopo 3 secondi
+    clock1 = setTimeout(myCountdown, 3000);
+}
+
+let arrayPrompt = [];
+
+// Funzione per far sparire la lista
+function myCountdown() {
+
+    // Inserisco uno spazio vuoto per resettare il contenuto nel DOM
+    ulNumeri.innerHTML = "";
+    
+    // Costante per avere un intervallo di tempo tra il reset del DOM e la comparsa dei PROMPT
+    const myInterval = setInterval(myTimer, 1);
+    
+    // Funzione per avere un intervallo di 1 millisecondo di tempo
+    function myTimer() {
+
+        // Creazione array prompt
+        arrayPrompt[0] = parseInt(prompt("Inserisci un numero di quelli che hai visto"));
+        arrayPrompt[1] = parseInt(prompt("Inserisci un numero"));
+        arrayPrompt[2] = parseInt(prompt("Inserisci un numero")); 
+        arrayPrompt[3] = parseInt(prompt("Inserisci un numero"));
+        arrayPrompt[4] = parseInt(prompt("Inserisci un numero")); 
+        
+        // arrayPrompt[0]
+        if (arrayPrompt[0] == array[0]) {
+            
+            ulNumeri.innerHTML += 
+            `
+                <li>
+                    Il numero che hai inserito: 
+                    <strong>${arrayPrompt[0]}</strong>, è lo stesso del 1o Numero!
+                </li>   
+            `
+        } else  {
+
+            ulNumeri.innerHTML += 
+            `
+                <li>
+                    Il numero che hai inserito: 
+                    <strong>${arrayPrompt[0]}</strong>, è diverso dal 1o Numero!
+                </li>   
+            `
+        }
+
+        // arrayPrompt[1]
+        if (arrayPrompt[1] == array[1]) {
+            
+            ulNumeri.innerHTML += 
+            `
+                <li>
+                    Il numero che hai inserito: 
+                    <strong>${arrayPrompt[1]}</strong>, è lo stesso del 2o Numero!
+                </li>   
+            `
+        } else  {
+
+            ulNumeri.innerHTML += 
+            `
+                <li>
+                    Il numero che hai inserito: 
+                    <strong>${arrayPrompt[1]}</strong>, è diverso dal 2o Numero!
+                </li>   
+            `
+        }
+
+        // arrayPrompt[2]
+        if (arrayPrompt[2] == array[2]) {
+            
+            ulNumeri.innerHTML += 
+            `
+                <li>
+                    Il numero che hai inserito: 
+                    <strong>${arrayPrompt[2]}</strong>, è lo stesso del 3o Numero!
+                </li>   
+            `
+        } else  {
+
+            ulNumeri.innerHTML += 
+            `
+                <li>
+                    Il numero che hai inserito: 
+                    <strong>${arrayPrompt[2]}</strong>, è diverso dal 3o Numero!
+                </li>   
+            `
+        }
+
+        // arrayPrompt[3]
+        if (arrayPrompt[3] == array[3]) {
+            
+            ulNumeri.innerHTML += 
+            `
+                <li>
+                    Il numero che hai inserito: 
+                    <strong>${arrayPrompt[3]}</strong>, è lo stesso del 4o Numero!
+                </li>   
+            `
+        } else  {
+
+            ulNumeri.innerHTML += 
+            `
+                <li>
+                    Il numero che hai inserito: 
+                    <strong>${arrayPrompt[3]}</strong>, è diverso dal 4o Numero!
+                </li>   
+            `
+        }
+
+        // arrayPrompt[4]
+        if (arrayPrompt[4] == array[4]) {
+            
+            ulNumeri.innerHTML += 
+            `
+                <li>
+                    Il numero che hai inserito: 
+                    <strong>${arrayPrompt[4]}</strong>, è lo stesso del 5o Numero!
+                </li>   
+            `
+        } else  {
+
+            ulNumeri.innerHTML += 
+            `
+                <li>
+                    Il numero che hai inserito: 
+                    <strong>${arrayPrompt[4]}</strong>, è diverso dal 5o Numero!
+                </li>   
+            `
+        }
     }
 
-    console.log(valueInput)
+    // Funzione per fermare SetInterval dopo 1 millisecondo
+    setTimeout( function() {
+
+        clearInterval(myInterval)
+    }, 1)
+
+    console.log(arrayPrompt)
+
 }
-console.log(arrayNumFun)

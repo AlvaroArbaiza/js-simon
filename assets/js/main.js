@@ -23,17 +23,19 @@ play.addEventListener( `click`, function(){
     playButton()
 })
 
+// Variabile che selezione l'elemento ul#numeri
 let ulNumeri = document.querySelector("#numeri");
 
+// Variabile che riutilizzerò per ( numRandom() )
 let num;
 
+// Variabile che riutilizzerò per ( setTimeout(myCountdown, 3000) )
 let clock1;
-
-let interval;
 
 // Variabile array vuota
 let array = [];
 
+// Indice
 let i = 0;
 
 // Funzione custom
@@ -42,7 +44,7 @@ function playButton(){
     // Funzione per la creazione di numeri random all'interno di un'array vuoto
     function arrayNum() {        
         
-        // Inserisco dentro l'array un Numero Random
+        // Ciclo WHILE: Inserisco dentro l'array un Numero Random
         while ( array.length < 5 ) {
 
             // Invoco la funzione con una variabile per avere lo stesso valore ovunque
@@ -51,8 +53,10 @@ function playButton(){
             // Viene pushato ( numRandom() )
             array.push( num )
             
+            // Ogni volta aggiungo +1 a i
             i++
 
+            // Ogni volta verrà inserita questa stringa
             ulNumeri.innerHTML +=
             `
                 <li><h3>${i}o Numero:</h3> <h2>${num}</h2></li>
@@ -67,6 +71,7 @@ function playButton(){
     clock1 = setTimeout(myCountdown, 3000);
 }
 
+// Array vuoto per i prompt
 let arrayPrompt = [];
 
 // Funzione per far sparire la lista

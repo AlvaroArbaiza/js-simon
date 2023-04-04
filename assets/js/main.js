@@ -16,3 +16,15 @@ Descrizione:
 //       - Al termine dell'inserimento i numeri dovranno scomparire
 //       - Dovrà comparire un input che mi permetterà di inserire i numeri all'interno dell'array:
 //          ° Dopo aver scritto i numeri, una condizione mi dirà se i numeri sono presenti all'interno dell'array
+
+/* --------------------------- Esercizio --------------------------- */
+
+// Variabile per il Numero Random
+const number = numRandom();
+
+// Funzione per la creazione dei numeri random
+function numRandom() {
+    return Math.floor( Math.random() * 100 ) - 1;
+}
+
+console.log(number)

@@ -26,76 +26,90 @@ play.addEventListener( `click`, function(){
 // Variabile che selezione l'elemento ul#numeri
 let ulNumeri = document.querySelector("#numeri");
 
-// Variabile che riutilizzerò per ( numRandom() )
-let num;
-
-// Variabile che riutilizzerò per ( setTimeout(myCountdown, 3000) )
-let clock1;
-
-let clock2;
-
-// Variabile array vuota
-let array = [];
-
 // Indice
 let i = 0;
 
+// Variabile array vuota
+let numeriRandom = [];
+
 // Funzione custom
 function playButton(){
-    
-    // Funzione per la creazione di numeri random all'interno di un'array vuoto
-    function arrayNum() {        
         
-        // Ciclo WHILE: Inserisco dentro l'array un Numero Random
-        while ( array.length < 5 ) {
+    // Ciclo WHILE: Inserisco dentro l'array un Numero Random
+    while ( numeriRandom.length < 5 ) {
 
-            // Invoco la funzione con una variabile per avere lo stesso valore ovunque
-            num = numRandom() 
-    
-            // Se nell'array non c'è il valore ( num )
-            if (!array.includes(num)) {
-            
-                // Viene pushato ( num )
-                array.push(num)
-            }    
+        // Invoco la funzione con una variabile per avere lo stesso valore ovunque
+        let num = numRandom() 
 
-            // Ogni volta aggiungo +1 a i
-            i++
+        // Se in numeriRandom non c'è il valore ( num )
+        if (!numeriRandom.includes(num)) {
+        
+            // Viene pushato ( num )
+            numeriRandom.push(num)
+        }    
 
-            // Ogni volta verrà inserita questa stringa
-            ulNumeri.innerHTML +=
-            `
-                <li><h3>${i}o Numero:</h3> <h2>${num}</h2></li>
-            `     
-        }
-    
-        return array
+        // Ogni volta aggiungo +1 a i
+        i++
+
+        // Ogni volta verrà inserita questa stringa
+        ulNumeri.innerHTML +=
+        `
+            <li><h3>${i}o Numero:</h3> <h2>${num}</h2></li>
+        `     
     }
-    console.log(arrayNum())
+    
+    // Invoco la funzione per far sparire la lista dopo 3 sec
+    const clock1 = setTimeout(myCountdown, 3000);
+    
+    // Invoco la funzione per far apparire i propmt dopo 3.5 sec
+    const clock2 = setTimeout(myCountdown2, 3500);
 
-    // Invoco la funzione per far sparire la lista dopo 3 secondi
-    clock1 = setTimeout(myCountdown, 3000);
-
-    clock2 = setTimeout(myCountdown2, 3500);
+    console.log(numeriRandom)
 }
-
-// Array vuoto per i prompt
-let arrayPrompt = [];
 
 // Funzione per far sparire la lista
 function myCountdown() {
-
+    
     // Inserisco uno spazio vuoto per resettare il contenuto nel DOM
     ulNumeri.innerHTML = "";
 }
 
+// Array vuoto per i prompt
+let numeriInseriti = [];
+
+// Arrray numeri uguali
+let numeriUguali = [];
+
+// Array numeri diversi
+let numeriDiversi = [];
+
 // Funzione che parte dopo che la lista è sparita
 function myCountdown2() {     
     
-    while ( arrayPrompt.length < 5 ) {
+    // Ciclo WHILE: Creazione elementi prompt dentro array prompt
+    while ( numeriInseriti.length < 5 ) {
 
-        arrayPrompt.push( parseInt( prompt("Inserisci un numero") ) );
+        // Inserisco il valore di prompt ogni giro
+        numeriInseriti.push( parseInt( prompt("Inserisci un numero") ) );
     }
-}
 
-console.log(arrayPrompt)
+    for ( let k = 0; k < numeriInseriti.length; k++ ) {
+
+        // IF: Se il valore di (numeriInseriti) è incluso in (numeriRandom)
+        if ( numeriRandom.includes(numeriInseriti[k]) ) {
+
+            // Inserisco il valore nell'array (numeriUguali)
+            numeriUguali.push(numeriInseriti[k])
+
+        // ELSE IF: Altrimenti se il valore di (numeriInseriti) non è incluso in (numeriRandom)
+        } else if ( !numeriRandom.includes(numeriInseriti[k]) ) {
+
+            // Inserisco il valore nell'array (numeriDiversi)
+            numeriDiversi.push(numeriInseriti[k])
+        }
+    }
+
+    console.log(numeriInseriti)
+    console.log(numeriUguali)
+    console.log(numeriDiversi)
+}

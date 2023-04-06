@@ -17,9 +17,9 @@ function numRandom() {
 // Creo una variabile per selezionare l'elemento nel DOM
 let play = document.getElementById("play");
 
-// Funzione al click
+// Funzione al click e invocazione al Play
 play.addEventListener( `click`, function(){    
-    // Invocazione al Play
+
     playButton()
 })
 
@@ -67,14 +67,13 @@ function playButton(){
     console.log(numeriRandom)
 }
 
-// Funzione per far sparire la lista
+// Funzione per far sparire la lista dopo 3 sec
 function myCountdown() {
     
-    // Inserisco uno spazio vuoto per resettare il contenuto nel DOM
     ulNumeri.innerHTML = "";
 }
 
-// Array vuoto per i prompt
+// Array per i prompt
 let numeriInseriti = [];
 
 // Arrray numeri uguali
@@ -89,10 +88,23 @@ function myCountdown2() {
     // Ciclo WHILE: Creazione elementi prompt dentro array prompt
     while ( numeriInseriti.length < 5 ) {
 
-        // Inserisco il valore di prompt ogni giro
-        numeriInseriti.push( parseInt( prompt("Inserisci un numero") ) );
+        let valorePrompt = parseInt( prompt("Inserisci un numero") );
+
+        // IF: Se il numero non è incluso
+        if ( !numeriInseriti.includes(valorePrompt) ) {
+
+            // Inserisco il valore di prompt ogni giro
+            numeriInseriti.push( valorePrompt );
+
+        // ELSE IF: Altrimenti se il numero è incluso
+        } else {
+            
+            // Inserisco un prompt diverso per poi ricominciare il giro 
+            valorePrompt = parseInt( prompt("Inserisci un numero diverso!") )
+        }
     }
 
+    // Ciclo FOR: Creazione elementi per due array, (numeriUguali) e (numeriDiversi)
     for ( let k = 0; k < numeriInseriti.length; k++ ) {
 
         // IF: Se il valore di (numeriInseriti) è incluso in (numeriRandom)
@@ -102,14 +114,26 @@ function myCountdown2() {
             numeriUguali.push(numeriInseriti[k])
 
         // ELSE IF: Altrimenti se il valore di (numeriInseriti) non è incluso in (numeriRandom)
-        } else if ( !numeriRandom.includes(numeriInseriti[k]) ) {
+        } else {
 
             // Inserisco il valore nell'array (numeriDiversi)
             numeriDiversi.push(numeriInseriti[k])
-        }
+        }  
     }
 
     console.log(numeriInseriti)
     console.log(numeriUguali)
     console.log(numeriDiversi)
+    
+    let score = numeriInseriti.length * 10;
+
+    // Inserimento stringhe nel DOM
+    document.getElementById("risultato").innerHTML = 
+    `
+        <p>Il tuo punteggio è di ${score} perché hai indovinato ${numeriUguali.length} numeri</p> 
+
+        <p>Numeri indovinati: ${numeriUguali.join(" ")}</p>
+
+        <p>Numeri non indovinati: ${numeriDiversi.join(" ")}</p>
+    `
 }

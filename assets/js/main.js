@@ -49,44 +49,62 @@ function playButton(){
         
             // Viene pushato ( num )
             numeriRandom.push(num)
-        }    
-
-        // Ogni volta verrà inserita questa stringa
-        ulNumeri.innerHTML +=
-        `
-            <li><h2>${num}</h2></li>
-        `     
+        }        
     }
-    
-    // Invoco la funzione per far sparire la lista dopo 3 sec
-    const clock1 = setTimeout(myCountdown, 3000);
-    
-    // Invoco la funzione per far apparire i propmt dopo 3.5 sec
-    const clock2 = setTimeout(myCountdown2, 3500);
 
+    let indice = 0
+
+    let interval = setInterval( function() {
+
+        if ( indice < numeriRandom.length) {
+
+            ulNumeri.innerHTML =
+            `
+                <h2 class="numeriRandom">${numeriRandom[indice]}</h2>
+            ` 
+        } else {
+
+            ulNumeri.innerHTML =` ` 
+        }
+
+        indice++
+
+
+    }, 1000)
+    
     console.log(numeriRandom)
-
-    return numeriRandom
+    
+    // Invoco la funzione per far sparire la lista dopo 6 sec
+    const clock1 = setTimeout(myCountdown, 6000);
+    
+    // Invoco la funzione per far apparire i prompt dopo 6.5 sec
+    const clock2 = setTimeout(myCountdown2, 6500);
 }
 
 // Funzione per far sparire la lista dopo 3 sec
 function myCountdown() {
     
-    ulNumeri.innerHTML = "";
+    ulNumeri.innerHTML = " ";
 }
 
 // Array per i prompt
-let numeriInseriti = [];
+let numeriInseriti;
 
 // Arrray numeri uguali
-let numeriUguali = [];
+let numeriUguali;
 
 // Array numeri diversi
-let numeriDiversi = [];
+let numeriDiversi;
 
 // Funzione che parte dopo che la lista è sparita
 function myCountdown2() {     
+
+    numeriInseriti = [];
+
+    numeriUguali = [];
     
+    numeriDiversi = [];
+
     // Ciclo WHILE: Creazione elementi prompt dentro array prompt
     while ( numeriInseriti.length < 5 ) {
 
@@ -122,15 +140,15 @@ function myCountdown2() {
             numeriDiversi.push(numeriInseriti[k])
         }  
     }
+    
+    let score = numeriUguali.length * 10;
 
     console.log(numeriInseriti)
     console.log(numeriUguali)
     console.log(numeriDiversi)
-    
-    let score = numeriUguali.length * 10;
 
     // Inserimento stringhe nel DOM
-    document.getElementById("numeri").innerHTML += 
+   document.getElementById("ciao").innerHTML = 
     `
         <p>Il tuo punteggio è di ${score} perché hai indovinato ${numeriUguali.length} numeri</p> 
 

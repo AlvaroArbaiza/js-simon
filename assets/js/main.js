@@ -8,8 +8,8 @@ Descrizione:
 /* ----------------------------------- Esercizio ----------------------------------- */
 
 // Funzione per la creazione dei numeri random
-function numRandom() {
-    return Math.floor( Math.random() * 100 ) + 1;
+function numRandom(max, min) {
+    return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
 /* ------------------ Creazione funzione al click ------------------ */
@@ -17,11 +17,6 @@ function numRandom() {
 // Creo una variabile per selezionare l'elemento nel DOM
 let play = document.getElementById("play");
 
-// Funzione al click e invocazione al Play
-play.addEventListener( `click`, function(){    
-
-    playButton()
-})
 
 // Variabile che selezione l'elemento ul#numeri
 let ulNumeri = document.querySelector("#numeri");
@@ -29,17 +24,25 @@ let ulNumeri = document.querySelector("#numeri");
 // Indice
 let i = 0;
 
-// Variabile array vuota
-let numeriRandom = [];
+// Funzione al click e invocazione al Play
+play.addEventListener( `click`, function(){    
+    
+    playButton()
+})
+
+let numeriRandom;
 
 // Funzione custom
 function playButton(){
+    
+    // Variabile array vuota
+    numeriRandom = [];
         
     // Ciclo WHILE: Inserisco dentro l'array un Numero Random
     while ( numeriRandom.length < 5 ) {
 
         // Invoco la funzione con una variabile per avere lo stesso valore ovunque
-        let num = numRandom() 
+        let num = numRandom(100, 1);
 
         // Se in numeriRandom non c'è il valore ( num )
         if (!numeriRandom.includes(num)) {
@@ -48,13 +51,10 @@ function playButton(){
             numeriRandom.push(num)
         }    
 
-        // Ogni volta aggiungo +1 a i
-        i++
-
         // Ogni volta verrà inserita questa stringa
         ulNumeri.innerHTML +=
         `
-            <li><h3>${i}o Numero:</h3> <h2>${num}</h2></li>
+            <li><h2>${num}</h2></li>
         `     
     }
     
@@ -65,6 +65,8 @@ function playButton(){
     const clock2 = setTimeout(myCountdown2, 3500);
 
     console.log(numeriRandom)
+
+    return numeriRandom
 }
 
 // Funzione per far sparire la lista dopo 3 sec
@@ -125,10 +127,10 @@ function myCountdown2() {
     console.log(numeriUguali)
     console.log(numeriDiversi)
     
-    let score = numeriInseriti.length * 10;
+    let score = numeriUguali.length * 10;
 
     // Inserimento stringhe nel DOM
-    document.getElementById("risultato").innerHTML = 
+    document.getElementById("numeri").innerHTML += 
     `
         <p>Il tuo punteggio è di ${score} perché hai indovinato ${numeriUguali.length} numeri</p> 
 
